@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vincere – Marketing Digital Estratégico</title>
+  <meta name="description" content="Vincere – Onde a estratégia encontra a execução. Marketing digital para pequenas e médias empresas." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Barlow+Condensed:wght@700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --red: #C8372D;
+      --red-dark: #A02820;
+      --black: #0D0D0D;
+      --cream: #F5F0E4;
+      --cream-dark: #EDE8D6;
+      --cream-muted: rgba(245,240,228,0.6);
+      --cream-faint: rgba(245,240,228,0.08);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: var(--black); color: var(--cream); font-family: 'Barlow', sans-serif; font-weight: 300; overflow-x: hidden; }
+
+    /* ── NAVBAR ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 3rem;
+      background: rgba(13,13,13,0.9);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--cream-faint);
+      transition: padding 0.3s;
+    }
+    nav.scrolled { padding: 0.8rem 3rem; }
+    .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.2em; color: var(--cream); text-decoration: none; }
+    .nav-logo span { color: var(--red); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { color: var(--cream-muted); text-decoration: none; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta { background: var(--red); color: #fff; padding: 0.6rem 1.5rem; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; transition: background 0.2s; }
+    .nav-cta:hover { background: var(--red-dark); }
+    .nav-burger { display: none; background: none; border: none; color: var(--cream); cursor: pointer; padding: 4px; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: flex-end;
+      padding: 8rem 3rem 4.5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 80% 60% at 72% 38%, rgba(200,55,45,0.13) 0%, transparent 62%);
+    }
+    .hero-grain {
+      position: absolute; inset: 0; pointer-events: none; opacity: 0.035;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    }
+    .hero-side-stats {
+      position: absolute; right: 3rem; top: 50%; transform: translateY(-50%);
+      display: flex; flex-direction: column; gap: 2.2rem; text-align: right;
+    }
+    .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--cream); line-height: 1; }
+    .stat-num span { color: var(--red); }
+    .stat-label { font-size: 0.68rem; letter-spacing: 0.22em; text-transform: uppercase; color: rgba(245,240,228,0.35); margin-top: 2px; }
+    .hero-line { width: 3px; height: 80px; background: var(--red); margin-bottom: 2rem; }
+    .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 1.2rem; }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 10vw, 9rem);
+      line-height: 0.9; letter-spacing: 0.02em;
+      color: var(--cream); max-width: 900px; margin-bottom: 2rem;
+      opacity: 0; transform: translateY(30px);
+      animation: fadeUp 0.9s 0.2s forwards;
+    }
+    .hero-title span { color: var(--red); }
+    .hero-sub {
+      font-size: 1.05rem; color: var(--cream-muted);
+      max-width: 480px; line-height: 1.75; margin-bottom: 3rem;
+      opacity: 0; animation: fadeUp 0.9s 0.45s forwards;
+    }
+    .hero-actions {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
+    }
+    .btn-primary {
+      background: var(--red); color: #fff;
+      padding: 1rem 2.2rem; font-size: 0.85rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { background: var(--red-dark); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--cream);
+      padding: 1rem 2rem; font-size: 0.85rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none; border: 1px solid rgba(245,240,228,0.22);
+      transition: border-color 0.2s;
+    }
+    .btn-ghost:hover { border-color: var(--cream); }
+    .hero-scroll {
+      position: absolute; right: 3rem; bottom: 3rem;
+      display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+      color: rgba(245,240,228,0.28); font-size: 0.65rem; letter-spacing: 0.22em; text-transform: uppercase;
+    }
+    .scroll-arrow { width: 1px; height: 40px; background: rgba(245,240,228,0.2); animation: scrollPulse 1.6s infinite; }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 3rem; }
+    .inner { max-width: 1200px; margin: 0 auto; }
+    .tag {
+      font-size: 0.68rem; letter-spacing: 0.32em; text-transform: uppercase;
+      color: var(--red); font-weight: 600; margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 0.7rem;
+    }
+    .tag::before { content: ''; display: block; width: 22px; height: 1px; background: var(--red); }
+    .sec-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4.5rem);
+      line-height: 0.92; color: var(--cream); margin-bottom: 1.5rem;
+    }
+    .sec-title span { color: var(--red); }
+
+    /* ── SOBRE ── */
+    .sobre-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 5rem; align-items: start; }
+    .photo-wrap { position: relative; }
+    .photo-box {
+      width: 100%; aspect-ratio: 3/4;
+      background: #181010;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
+      border: 1px solid rgba(245,240,228,0.06);
+    }
+    .photo-box-label { font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(245,240,228,0.25); }
+    .photo-accent { position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--red); }
+    .photo-num {
+      position: absolute; top: 1.5rem; right: -1.5rem;
+      font-family: 'Bebas Neue', sans-serif; font-size: 8rem; line-height: 1;
+      color: rgba(245,240,228,0.03); pointer-events: none; user-select: none;
+    }
+    .sobre-text { font-size: 0.96rem; color: rgba(245,240,228,0.65); line-height: 1.85; margin-bottom: 1.4rem; }
+    .goals { display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem; }
+    .goal {
+      display: flex; gap: 1.2rem; align-items: flex-start;
+      padding: 1.2rem; border: 1px solid var(--cream-faint);
+      background: rgba(245,240,228,0.015);
+      transition: border-color 0.25s, background 0.25s;
+    }
+    .goal:hover { border-color: rgba(200,55,45,0.4); background: rgba(200,55,45,0.03); }
+    .goal-n { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--red); line-height: 1; min-width: 2.8rem; }
+    .goal-title { font-size: 0.75rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--cream); font-weight: 600; margin-bottom: 0.3rem; }
+    .goal-desc { font-size: 0.86rem; color: rgba(245,240,228,0.48); line-height: 1.65; }
+
+    /* ── PILARES ── */
+    #pilares { padding-top: 2rem; }
+    .pilares-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--cream-faint); margin-top: 3.5rem; }
+    .pilar {
+      background: var(--black); padding: 2.5rem 2rem;
+      position: relative; overflow: hidden;
+      transition: background 0.25s;
+    }
+    .pilar:hover { background: #141414; }
+    .pilar-bar { position: absolute; bottom: 0; left: 0; right: 0; height: 2px; background: var(--red); transform: scaleX(0); transform-origin: left; transition: transform 0.35s ease; }
+    .pilar:hover .pilar-bar { transform: scaleX(1); }
+    .pilar-icon { color: var(--red); margin-bottom: 1.5rem; font-size: 1.6rem; }
+    .pilar-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cream); margin-bottom: 0.8rem; }
+    .pilar-text { font-size: 0.87rem; color: rgba(245,240,228,0.48); line-height: 1.75; }
+
+    /* ── SERVIÇOS ── */
+    #servicos { background: var(--cream); }
+    #servicos .tag { color: var(--red); }
+    #servicos .tag::before { background: var(--red); }
+    #servicos .sec-title { color: var(--black); }
+    .servicos-intro { font-size: 0.97rem; color: rgba(13,13,13,0.5); max-width: 540px; line-height: 1.8; margin-bottom: 4rem; }
+    .servicos-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .card {
+      background: #fff; padding: 2.5rem 2rem;
+      border: 1px solid rgba(13,13,13,0.07);
+      position: relative; transition: transform 0.22s, box-shadow 0.22s;
+    }
+    .card:hover { transform: translateY(-5px); box-shadow: 0 20px 48px rgba(13,13,13,0.1); }
+    .card.featured { border-top: 3px solid var(--red); }
+    .badge {
+      display: inline-block; background: var(--red); color: #fff;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.28rem 0.7rem; font-weight: 600; margin-bottom: 1.4rem;
+    }
+    .card-icon { color: var(--red); margin-bottom: 1.1rem; }
+    .card-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.04em; color: var(--black); margin-bottom: 0.3rem; }
+    .card-price { display: flex; align-items: baseline; gap: 0.3rem; margin-bottom: 1.4rem; }
+    .price-val { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: var(--red); line-height: 1; }
+    .price-period { font-size: 0.76rem; color: rgba(13,13,13,0.38); letter-spacing: 0.1em; text-transform: uppercase; }
+    .divider { width: 100%; height: 1px; background: rgba(13,13,13,0.07); margin: 1.2rem 0; }
+    .features { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .features li { display: flex; align-items: flex-start; gap: 0.6rem; font-size: 0.84rem; color: rgba(13,13,13,0.62); line-height: 1.55; }
+    .features li::before { content: ''; display: block; width: 4px; height: 4px; border-radius: 50%; background: var(--red); margin-top: 0.42rem; flex-shrink: 0; }
+    .disclaimer { margin-top: 1.2rem; padding: 0.9rem; background: rgba(13,13,13,0.04); font-size: 0.75rem; color: rgba(13,13,13,0.42); line-height: 1.65; font-style: italic; }
+
+    /* ── EXPERIÊNCIA ── */
+    .exp-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 5rem; align-items: start; margin-top: 4rem; }
+    .exp-intro { font-size: 0.92rem; color: rgba(245,240,228,0.48); line-height: 1.8; }
+    .timeline { display: flex; flex-direction: column; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--cream-faint); }
+    .t-item { padding: 0 0 2.8rem 2.5rem; position: relative; }
+    .t-item:last-child { padding-bottom: 0; }
+    .t-dot { position: absolute; left: -4.5px; top: 0.4rem; width: 10px; height: 10px; border-radius: 50%; background: var(--red); }
+    .t-company { font-family: 'Barlow Condensed', sans-serif; font-size: 1.2rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--cream); margin-bottom: 0.25rem; }
+    .t-role { font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--red); font-weight: 600; margin-bottom: 0.6rem; }
+    .t-desc { font-size: 0.87rem; color: rgba(245,240,228,0.48); line-height: 1.72; }
+
+    /* ── CTA ── */
+    #cta { background: var(--red); text-align: center; position: relative; overflow: hidden; padding: 8rem 3rem; }
+    .cta-overlay { position: absolute; inset: 0; background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(0,0,0,0.18) 0%, transparent 70%); pointer-events: none; }
+    .cta-eyebrow { font-size: 0.72rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,0.55); font-weight: 600; margin-bottom: 1.5rem; }
+    .cta-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 8vw, 7rem); line-height: 0.88; color: #fff; margin-bottom: 1.5rem; position: relative; z-index: 1; }
+    .cta-sub { font-size: 1rem; color: rgba(255,255,255,0.68); max-width: 460px; margin: 0 auto 3rem; line-height: 1.75; position: relative; z-index: 1; }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: #fff; color: var(--red); padding: 1rem 2.5rem;
+      font-size: 0.85rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+      text-decoration: none; transition: background 0.2s, transform 0.2s; position: relative; z-index: 1;
+    }
+    .btn-white:hover { background: var(--cream); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #060606; padding: 2.5rem 3rem;
+      border-top: 1px solid rgba(245,240,228,0.04);
+      display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1.2rem;
+    }
+    .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.2em; color: var(--cream); }
+    .footer-logo span { color: var(--red); }
+    .footer-copy { font-size: 0.76rem; color: rgba(245,240,228,0.22); letter-spacing: 0.05em; }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+    @keyframes scrollPulse { 0%,100% { opacity: 0.2; } 50% { opacity: 0.7; } }
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 1.1rem 1.5rem; }
+      nav.scrolled { padding: 0.8rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-burger { display: block; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; inset: 0; top: 60px; background: rgba(13,13,13,0.97); padding: 3rem 2rem; gap: 2rem; z-index: 99; }
+      .nav-links.open a { font-size: 1.2rem; }
+      #hero { padding: 7rem 1.5rem 4rem; }
+      .hero-side-stats { display: none; }
+      .hero-scroll { right: 1.5rem; }
+      section { padding: 5rem 1.5rem; }
+      .sobre-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .photo-box { aspect-ratio: 4/3; }
+      .photo-num { display: none; }
+      .pilares-grid { grid-template-columns: 1fr; }
+      .servicos-grid { grid-template-columns: 1fr; }
+      .exp-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      #cta { padding: 5rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a class="nav-logo" href="#hero">VINCE<span>RE</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#sobre" onclick="closeMenu()">Sobre</a></li>
+    <li><a href="#pilares" onclick="closeMenu()">Estratégia</a></li>
+    <li><a href="#servicos" onclick="closeMenu()">Serviços</a></li>
+    <li><a href="#experiencia" onclick="closeMenu()">Experiência</a></li>
+  </ul>
+  <div style="display:flex;align-items:center;gap:1rem;">
+    <a class="nav-cta" href="#cta">Contato</a>
+    <button class="nav-burger" id="burger" onclick="toggleMenu()" aria-label="Menu">
+      <svg id="burgerIcon" width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="2">
+        <line x1="2" y1="6" x2="20" y2="6"/><line x1="2" y1="11" x2="20" y2="11"/><line x1="2" y1="16" x2="20" y2="16"/>
+      </svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-side-stats">
+    <div>
+      <div class="stat-num">3<span>+</span></div>
+      <div class="stat-label">Clientes Ativos</div>
+    </div>
+    <div>
+      <div class="stat-num">10<span>↑</span></div>
+      <div class="stat-label">Meta 2026</div>
+    </div>
+    <div>
+      <div class="stat-num">5<span>Y</span></div>
+      <div class="stat-label">Visão EUA</div>
+    </div>
+  </div>
+  <div class="hero-line"></div>
+  <p class="hero-eyebrow">Marketing Digital · Estratégia · Resultados</p>
+  <h1 class="hero-title">
+    Onde a<br>
+    Estratégia<br>
+    <span>Encontra</span><br>
+    a Execução.
+  </h1>
+  <p class="hero-sub">Transformando ideias em resultados reais — marketing prático e crescimento digital para pequenas e médias empresas.</p>
+  <div class="hero-actions">
+    <a class="btn-primary" href="#servicos">
+      Ver Serviços
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7,7 17,7 17,17"/></svg>
+    </a>
+    <a class="btn-ghost" href="#sobre">Conheça a Vincere</a>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-arrow"></div>
+    <span>scroll</span>
+  </div>
+</section>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="inner">
+    <div class="sobre-grid">
+      <div class="photo-wrap reveal">
+        <div class="photo-box">
+          <!-- Substitua por: <img src="sua-foto.jpg" alt="Vinicius Ferreira" style="width:100%;height:100%;object-fit:cover;filter:sepia(0.6) contrast(1.1)"> -->
+          <p class="photo-box-label">Foto Profissional</p>
+          <p class="photo-box-label" style="font-size:0.6rem;opacity:0.4;">tom sépia · iluminação artística</p>
+        </div>
+        <div class="photo-accent"></div>
+        <div class="photo-num">VF</div>
+      </div>
+      <div class="reveal" style="transition-delay:0.15s">
+        <p class="tag">Sobre Vinicius Ferreira</p>
+        <h2 class="sec-title">Visão &<br><span>Missão</span></h2>
+        <p class="sobre-text">Sou Vinicius Ferreira, fundador da Vincere. Minha trajetória combina vendas, liderança e empreendedorismo — uma base sólida que influencia diretamente meu trabalho criativo e pensamento estratégico.</p>
+        <p class="sobre-text">Aqui, estratégia não é guessing. É direção, consistência e resultados mensuráveis. Construo planos estruturados que conectam ações offline e digitais, garantindo que cada movimento tenha um propósito claro.</p>
+        <div class="goals">
+          <div class="goal">
+            <div class="goal-n">01</div>
+            <div>
+              <div class="goal-title">Missão</div>
+              <div class="goal-desc">Criar impacto real ajudando negócios a crescerem através de marketing estratégico, consistente e orientado a resultados.</div>
+            </div>
+          </div>
+          <div class="goal">
+            <div class="goal-n">02</div>
+            <div>
+              <div class="goal-title">Meta 2026</div>
+              <div class="goal-desc">Fechar com 10 clientes sólidos, construir experiência prática e reinvestir em câmera e drone de alta performance.</div>
+            </div>
+          </div>
+          <div class="goal">
+            <div class="goal-n">03</div>
+            <div>
+              <div class="goal-title">Visão de Longo Prazo</div>
+              <div class="goal-desc">Transformar a Vincere em uma marca poderosa com presença sólida no mercado norte-americano nos próximos 5 anos.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PILARES -->
+<section id="pilares" style="padding-top:2rem;">
+  <div class="inner">
+    <p class="tag reveal">Pilares Estratégicos</p>
+    <h2 class="sec-title reveal">Como Trabalho<br><span>por Você</span></h2>
+    <div class="pilares-grid">
+      <div class="pilar reveal">
+        <div class="pilar-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="pilar-name">Analytics & Relatórios</div>
+        <p class="pilar-text">O que não é medido não pode ser melhorado. Acompanho performance, analiso dados e transformo números em insights — para que cada estratégia evolua com base em resultados reais, não suposições.</p>
+        <div class="pilar-bar"></div>
+      </div>
+      <div class="pilar reveal" style="transition-delay:0.1s">
+        <div class="pilar-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="1,4 1,10 7,10"/><path d="M3.51 15a9 9 0 1 0 .49-4.02"/></svg>
+        </div>
+        <div class="pilar-name">Adaptação & Evolução</div>
+        <p class="pilar-text">Mercados mudam — e estratégias precisam acompanhar. Adapto e refino continuamente as ações para manter o negócio relevante, competitivo e sempre em movimento para frente.</p>
+        <div class="pilar-bar"></div>
+      </div>
+      <div class="pilar reveal" style="transition-delay:0.2s">
+        <div class="pilar-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <div class="pilar-name">Metas & Objetivos</div>
+        <p class="pilar-text">Metas claras geram progresso real. Defino alvos mensuráveis que guiam cada ação, garantindo que o crescimento seja planejado e executado com precisão — nunca por acidente.</p>
+        <div class="pilar-bar"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVIÇOS -->
+<section id="servicos">
+  <div class="inner">
+    <p class="tag reveal">Serviços & Preços</p>
+    <h2 class="sec-title reveal">O que posso fazer<br><span>pelo seu negócio?</span></h2>
+    <p class="servicos-intro reveal">Trago ideias à vida — do conceito inicial à execução completa. Serviços focados em entregar resultados de alta qualidade dedicando meu tempo e expertise criativa ao seu projeto.</p>
+    <div class="servicos-grid">
+
+      <!-- VÍDEO -->
+      <div class="card reveal">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="23,7 16,12 23,17"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        </div>
+        <div class="card-name">Edição de Vídeo</div>
+        <div class="card-price">
+          <div class="price-val">US$100</div>
+          <div class="price-period">/ vídeo</div>
+        </div>
+        <div class="divider"></div>
+        <ul class="features">
+          <li>Recebimento de footage bruto via Google Drive</li>
+          <li>Edição baseada nos seus objetivos e referências</li>
+          <li>Legendas, cortes, efeitos e sound design</li>
+          <li>Formatos otimizados para redes sociais e ads</li>
+          <li>Revisões rápidas baseadas no seu feedback</li>
+        </ul>
+      </div>
+
+      <!-- SOCIAL MEDIA -->
+      <div class="card featured reveal" style="transition-delay:0.1s">
+        <span class="badge">Mais Popular</span>
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="card-name">Social Media</div>
+        <div class="card-price">
+          <div class="price-val">US$250</div>
+          <div class="price-period">/ mês</div>
+        </div>
+        <div class="divider"></div>
+        <ul class="features">
+          <li>10 posts mensais completos</li>
+          <li>2 Reels (vídeos curtos / virais)</li>
+          <li>2 Carrosséis (educativos / storytelling)</li>
+          <li>2 Posts estáticos (branding, ofertas, anúncios)</li>
+          <li>1 Orientação de Stories (estratégia diária)</li>
+          <li>Identidade visual para consistência do feed</li>
+        </ul>
+        <div class="disclaimer">⚠ Reels exigem gravação pelo cliente. Forneço direção criativa, roteiro e edição completa. Oriento sobre ângulos, iluminação e enquadramento.</div>
+      </div>
+
+      <!-- GOOGLE MAPS -->
+      <div class="card reveal" style="transition-delay:0.2s">
+        <div class="card-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        </div>
+        <div class="card-name">Google Maps</div>
+        <div class="card-price">
+          <div class="price-val">US$25</div>
+          <div class="price-period">/ mês</div>
+        </div>
+        <div class="divider"></div>
+        <ul class="features">
+          <li>Otimização completa do perfil</li>
+          <li>Fotos e vídeos para enriquecer o visual</li>
+          <li>Conteúdo estratégico para atrair clientes</li>
+          <li>Análise competitiva local</li>
+          <li>Estratégias para gerar mais avaliações</li>
+          <li>Atualizações mensais e respostas a reviews</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIÊNCIA -->
+<section id="experiencia">
+  <div class="inner">
+    <p class="tag reveal">Trajetória Profissional</p>
+    <h2 class="sec-title reveal">Minha<br><span>Experiência</span></h2>
+    <div class="exp-grid">
+      <div class="reveal" style="transition-delay:0.1s">
+        <p class="exp-intro">Minha trajetória combina vendas, liderança e empreendedorismo — uma base que influencia diretamente meu trabalho criativo e pensamento estratégico na Vincere.</p>
+      </div>
+      <div class="timeline reveal" style="transition-delay:0.2s">
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-company">Vivo S.A</div>
+          <div class="t-role">Consultor → Gestão de Performance</div>
+          <div class="t-desc">Avancei de Consultor para Gestão, desenvolvendo habilidades sólidas em vendas, liderança e estratégia de performance.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-company">Kings Sneakers</div>
+          <div class="t-role">Gerente de Loja</div>
+          <div class="t-desc">Gerente focado em liderança de equipe, crescimento em vendas e excelência na experiência do cliente no varejo de streetwear.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-company">Ultranet</div>
+          <div class="t-role">SDR – Sales Development Representative</div>
+          <div class="t-desc">Trabalhei como SDR, especializando em geração de leads, qualificação de prospects e criação de oportunidades de vendas.</div>
+        </div>
+        <div class="t-item">
+          <div class="t-dot"></div>
+          <div class="t-company">Autônomo</div>
+          <div class="t-role">Fundador · Multi-negócios</div>
+          <div class="t-desc">Construí múltiplos pequenos negócios, adquirindo experiência prática em vendas, branding e operações do zero.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-overlay"></div>
+  <p class="cta-eyebrow reveal">Pronto para crescer?</p>
+  <h2 class="cta-title reveal">Vamos Trabalhar<br>Juntos!</h2>
+  <p class="cta-sub reveal">Marketing não é despesa — é o motor que move seu negócio para frente. Vamos criar algo consistente, escalável e impactante.</p>
+  <a class="btn-white reveal" href="https://wa.me/5512XXXXXXXXX?text=Olá!%20Vi%20o%20portfólio%20da%20Vincere%20e%20gostaria%20de%20conversar." target="_blank" rel="noopener">
+    Falar no WhatsApp
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7,7 17,7 17,17"/></svg>
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">VINCE<span>RE</span></div>
+  <div class="footer-copy">© 2026 Vincere · Vinicius Ferreira · Vale do Paraíba & Litoral Norte SP</div>
+  <div class="footer-copy">Marketing Digital · Estratégia · Resultados</div>
+</footer>
+
+<script>
+  // Navbar scroll
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Mobile menu
+  function toggleMenu() {
+    document.getElementById('navLinks').classList.toggle('open');
+  }
+  function closeMenu() {
+    document.getElementById('navLinks').classList.remove('open');
+  }
+
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); closeMenu(); }
+    });
+  });
+</script>
+</body>
+</html>
